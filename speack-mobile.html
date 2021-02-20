@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style type="text/css">
+    	body{
+    		margin:0;
+
+    		align-items: center;
+    		justify-content: center;
+    	}
+    	form, form > * {display: block;
+    		margin-top: 1cm; margin-left: 1cm;}
+    </style>
+</head>
+
+<body>
+    <h1>Speech </h1>
+   
+    <form>
+    	 <p>your command &#128113;</p>
+    	 <textarea type="text" class="words" autofocus></textarea>
+       
+        <hr>
+         <p>Bot 🤖</p>
+        <input type="text" class="boot">
+          <hr>
+
+        <button onclick="ply() ">play</button>
+    </form>
+    <script type="text/javascript" >var recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+recognition.lang = 'en-usa';
+recognition.interimResults = true;
+recognition.maxAlternatives = 1;
+recognition.start();
+var words = document.querySelector(".words");
+var boot = document.querySelector(".boot");
+recognition.onresult = function(event) {
+    console.log('You said: ', event.results[0][0].transcript);
+console.log(recognition );
+    let VoiseText = event.results[0][0].transcript;
+    words.value = VoiseText;
+
+
+    change()
+
+}
+
+recognition.addEventListener('end', recognition.start)
+
+function change() {
+
+    // obj msgs 
+    const objMsg = {
+        gradut: words.value.includes("hello"),
+
+        state: words.value.includes("how are you"),
+
+        name: words.value.includes("what is your name"),
+        myName: words.value.includes("what is my name"),
+
+        count: words.value.includes("oneplus one"),
+
+        delCommand: words.value.includes("delete all"),
+
+        bgColor: words.value.includes("background colour"),
+
+    }
+
+
+
+
+    // command replay hello. 
+    if (objMsg.gradut) { boot.value = " welcome omar 👋"; }
+
+    // command replay name. 
+    if (objMsg.name) { boot.value = " Bot  💻 "; }
+
+    // command replay myName. 
+    if (objMsg.myName) { boot.value = "developer Omar Bakhsh ‼ "; }
+
+    // command replay count. 
+    if (objMsg.count) { boot.value = " it's 2 🧠"; }
+
+    // command replay how are you . 
+    if (objMsg.state) { boot.value = " Fine thanks \n and you ⁉"; }
+
+    // command Delete form. 
+    if (objMsg.delCommand) {
+        console.log("deleted all");
+        words.value = "";
+        boot.value = "";
+        boot.placeholder = " deleted ..";
+        console.clear();
+    }
+    if (words.value.length > 5) {
+        words.value += '\n';
+    }
+
+    function red() {
+
+        document.body.style.background = 'red';
+
+    }
+    // command replay how are you . 
+    if (objMsg.bgColor) { boot.value = " background changed ";
+        red() }
+
+
+};</script>
+</body>
+
+</html>
